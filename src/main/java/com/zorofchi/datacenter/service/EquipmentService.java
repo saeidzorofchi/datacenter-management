@@ -29,7 +29,11 @@ public class EquipmentService {
 
         Rack rack = equipment.getRack();
 
-        if (equipment.getStartUnit() < 1 || equipment.getHeightUnits() < 1 ){
+        if (rack == null) {
+            throw new RuntimeException("Rack is required");
+        }
+
+        if (equipment.getStartUnit() < 1 || equipment.getHeightUnits() < 1) {
             throw new RuntimeException("Invalid equipment position");
         }
 
@@ -59,6 +63,30 @@ public class EquipmentService {
         }
     }
 
+    public List<Equipment> getAllEquipments() {
+        return equipmentRepository.findAll();
+    }
+
+    public Equipment getEquipmentById(Long id) {
+        return equipmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Equipment not found"));
+    }
+
+    public Equipment updateEquipment(Long id, Equipment newEquipment) {
+
+        Equipment existing = getEquipmentById(id);
+
+        existing.setName(newEquipment.getName());
+        existing.setType(newEquipment.getType());
+        existing.setDescription(newEquipment.getDescription());
+
+        return equipmentRepository.save(existing);
+    }
+
+    public void deleteEquipment(Long id) {
+        Equipment equipment = getEquipmentById(id);
+        equipmentRepository.delete(equipment);
+    }
 
 
 }

@@ -2,6 +2,7 @@ package com.zorofchi.datacenter.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,8 +21,7 @@ public class Rack {
     private RackRow rackRow;
 
     @OneToMany(mappedBy = "rack")
-    private List<Equipment> equipments;
-
+    private List<Equipment> equipments = new ArrayList<>();
     public long getId() {
         return id;
     }
