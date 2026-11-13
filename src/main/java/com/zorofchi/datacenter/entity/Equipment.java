@@ -1,5 +1,6 @@
 package com.zorofchi.datacenter.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,9 +16,9 @@ public class Equipment {
     private int startUnit;
     private int heightUnits;
     private String description;
+    @JsonIgnore
     @ManyToOne
     private Rack rack;
-
     @OneToMany(mappedBy = "equipment")
     private List<Port> ports;
 

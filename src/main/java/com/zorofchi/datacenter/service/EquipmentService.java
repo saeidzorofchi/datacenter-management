@@ -46,14 +46,15 @@ public class EquipmentService {
     }
 
     public void validateUnitOverlap(Equipment equipment) {
-
         Rack rack = equipment.getRack();
 
         int newStart = equipment.getStartUnit();
         int newEnd = newStart + equipment.getHeightUnits() - 1;
 
-        for (Equipment existing : rack.getEquipments()) {
+        List<Equipment> existingEquipments =
+                equipmentRepository.findByRackId(rack.getId());
 
+        for (Equipment existing : existingEquipments) {
             int existingStart = existing.getStartUnit();
             int existingEnd = existingStart + existing.getHeightUnits() - 1;
 
@@ -62,7 +63,6 @@ public class EquipmentService {
             }
         }
     }
-
     public List<Equipment> getAllEquipments() {
         return equipmentRepository.findAll();
     }

@@ -10,9 +10,20 @@ public class Port {
     private Long id;
 
     private int portNumber;
+    @Enumerated(EnumType.STRING)
+    private PortSide side;
+
 
     @ManyToOne
     private Equipment equipment;
+
+    public PortSide getSide() {
+        return side;
+    }
+
+    public void setSide(PortSide side) {
+        this.side = side;
+    }
 
     public Long getId() {
         return id;

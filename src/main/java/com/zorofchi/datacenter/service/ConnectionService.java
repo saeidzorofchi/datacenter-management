@@ -16,6 +16,24 @@ public class ConnectionService {
     }
 
     public Connection addConnection(Connection connection) {
+
+        Long sourcePortId = connection.getSourcePort().getId();
+        Long destinationPortId = connection.getDestinationPort().getId();
+
+        if (sourcePortId.equals(destinationPortId)) {
+            throw new RuntimeException("A port cannot connect to itself");
+        }
+
+        if (connectionRepository.existsBySourcePortId(sourcePortId) ||
+                connectionRepository.existsByDestinationPortId(sourcePortId)) {
+            throw new RuntimeException("Source port is already connected");
+        }
+
+        if (connectionRepository.existsBySourcePortId(destinationPortId) ||
+                connectionRepository.existsByDestinationPortId(destinationPortId)) {
+            throw new RuntimeException("Destination port is already connected");
+        }
+
         return connectionRepository.save(connection);
     }
 
