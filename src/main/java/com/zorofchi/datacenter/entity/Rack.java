@@ -13,7 +13,7 @@ public class Rack {
 
     private String name;
     private int rackNumber;
-    private int totalUnits;
+    private int totalUnits = 42;
     private String description;
 
     @ManyToOne
@@ -68,5 +68,13 @@ public class Rack {
 
     public void setRackRow(RackRow rackRow) {
         this.rackRow = rackRow;
+    }
+
+    public List<Equipment> getEquipments() {
+        return equipments;
+    }
+
+    public void setEquipments(List<Equipment> equipments) {
+        this.equipments = equipments;
     }
 }
