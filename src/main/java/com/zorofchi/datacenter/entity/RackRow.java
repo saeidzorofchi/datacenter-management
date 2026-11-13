@@ -1,10 +1,8 @@
 package com.zorofchi.datacenter.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class RackRow {
@@ -18,6 +16,9 @@ public class RackRow {
 
     @ManyToOne
     private DataCenter dataCenter;
+
+    @OneToMany(mappedBy = "rackRow")
+    private List<Rack> racks;
 
     public Long getId() {
         return id;

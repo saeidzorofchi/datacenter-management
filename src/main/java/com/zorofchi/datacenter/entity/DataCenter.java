@@ -1,9 +1,8 @@
 package com.zorofchi.datacenter.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class DataCenter {
@@ -13,8 +12,12 @@ public class DataCenter {
     private Long id;
 
     private String name;
-    private String location;
     private String description;
+    @ManyToOne
+    private Location location;
+
+    @OneToMany(mappedBy = "dataCenter")
+    private List<RackRow> rackRows;
 
     public Long getId() {
         return id;
@@ -32,11 +35,11 @@ public class DataCenter {
         this.name = name;
     }
 
-    public String getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 

@@ -2,6 +2,8 @@ package com.zorofchi.datacenter.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Rack {
 
@@ -13,8 +15,12 @@ public class Rack {
     private int rackNumber;
     private int totalUnits;
     private String description;
+
     @ManyToOne
     private RackRow rackRow;
+
+    @OneToMany(mappedBy = "rack")
+    private List<Equipment> equipments;
 
     public long getId() {
         return id;

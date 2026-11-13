@@ -2,6 +2,8 @@ package com.zorofchi.datacenter.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Equipment {
     @Id
@@ -16,7 +18,8 @@ public class Equipment {
     @ManyToOne
     private Rack rack;
 
-
+    @OneToMany(mappedBy = "equipment")
+    private List<Port> ports;
 
     public String getName() {
         return name;
