@@ -45,23 +45,40 @@ public class DataInitializer implements CommandLineRunner {
             return;
         }
 
-        String[] cities = {
-                "Tehran",
-                "Isfahan",
-                "Fars",
-                "Khorasan Razavi",
-                "East Azerbaijan"
+
+        Location country = new Location();
+        country.setName("Iran");
+        country = locationRepository.save(country);
+
+        List<Location> locations = new ArrayList<>();
+
+        String[][] regions = {
+                {"Tehran", "Tehran", "Sattar Khan"},
+                {"Isfahan", "Isfahan", "Jolfa"},
+                {"Fars", "Shiraz", "Zand"},
+                {"Khorasan Razavi", "Mashhad", "Ahmadabad"},
+                {"East Azerbaijan", "Tabriz", "Valiasr"}
         };
 
+        for (String[] region : regions) {
 
-        for (String city : cities) {
-            Location location = new Location();
-            location.setName(city);
-            locationRepository.save(location);
+            Location province = new Location();
+            province.setName(region[0]);
+            province.setParent(country);
+            province = locationRepository.save(province);
+
+            Location city = new Location();
+            city.setName(region[1]);
+            city.setParent(province);
+            city = locationRepository.save(city);
+
+            Location neighborhood = new Location();
+            neighborhood.setName(region[2]);
+            neighborhood.setParent(city);
+            neighborhood = locationRepository.save(neighborhood);
+
+            locations.add(neighborhood);
         }
-
-        List<Location> locations = locationRepository.findAll();
-
 
         for (Location location : locations) {
             DataCenter dataCenter = new DataCenter();
