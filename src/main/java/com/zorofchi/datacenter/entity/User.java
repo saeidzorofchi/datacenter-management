@@ -3,6 +3,7 @@ package com.zorofchi.datacenter.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "app_users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

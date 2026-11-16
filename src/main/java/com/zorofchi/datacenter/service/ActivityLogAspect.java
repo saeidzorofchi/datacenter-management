@@ -23,7 +23,8 @@ public class ActivityLogAspect {
     @AfterReturning(
             "execution(* com.zorofchi.datacenter.service.*.add*(..)) || " +
                     "execution(* com.zorofchi.datacenter.service.*.update*(..)) || " +
-                    "execution(* com.zorofchi.datacenter.service.*.delete*(..))"
+                    "execution(* com.zorofchi.datacenter.service.*.delete*(..)) || " +
+                    "execution(* com.zorofchi.datacenter.service.*.get*(..))"
     )
     public void logActivity(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
