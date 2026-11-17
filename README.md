@@ -1,6 +1,6 @@
 # Data Center Management System
 
-A Java Spring Boot application for managing data centers, rack rows, racks, equipment, ports, and network connections.
+A Java Spring Boot application for managing data centers, rack rows, racks, equipment, ports, network connections, and dedicated server rental services.
 
 # 1. صورت مسئله | Challenge Description
 
@@ -18,6 +18,8 @@ A Java Spring Boot application for managing data centers, rack rows, racks, equi
 
 همچنین سیستم باید قابلیت مدیریت کاربران با سطوح دسترسی مختلف و ثبت فعالیت‌های انجام‌شده را داشته باشد.
 
+در بخش دوم، سیستم امکان ثبت‌نام مشتریان، اجاره سرور اختصاصی، صدور و پرداخت فاکتور، تمدید سرویس و پشتیبانی از طریق تیکت را فراهم می‌کند.
+
 ### English
 
 The goal of this project is to design and implement a Data Center Management System.
@@ -30,9 +32,13 @@ Each data center contains multiple rack rows, and each rack row contains multipl
 
 The system supports equipment such as Servers, Switches, and Patch Panels. Equipment ports can be connected to other equipment ports, with Patch Panels acting as intermediaries between servers and switches.
 
-The system also includes basic user management and activity logging.
+The system also includes user management, role-based access control, and activity logging.
+
+In addition, the application provides dedicated server rental services, customer registration, invoice generation and payment, subscription renewal, and customer support ticket management.
 
 # 2. پیاده‌سازی‌ها | Implemented Features
+
+### Challenge 1: Data Center Management
 
 - Management of Data Centers and geographical locations
 - Four-level location hierarchy
@@ -42,9 +48,36 @@ The system also includes basic user management and activity logging.
 - Port management
 - Network connections between equipment ports
 - One-to-one port connection validation
-- User management with ADMIN and USER roles
-- Activity logging using Spring AOP
+- PatchPanel-based connections between servers and switches
 - Automatic initialization of sample database data
+
+### Challenge 2: Server Rental System
+
+- Customer registration (Individual and Legal Entity)
+- Dedicated server rental
+- Subscription management
+- Invoice generation for new rentals
+- Invoice generation for subscription renewals
+- Invoice payment
+- Subscription renewal after extending the expiration date
+- Support ticket creation by customers
+- Support ticket replies by system users
+
+### User Management and Security
+
+- User management (Create, Read, Update, Delete)
+- Role-based access control
+- ADMIN, SUPPORT, and USER roles
+- Admin user management and role modification
+- Support users can view tickets and reply to them
+- API access restriction using Spring Security
+
+### Activity Logging
+
+- Automatic activity logging using Spring AOP
+- Recording the username, action, and timestamp
+- Logging user management operations
+- Activity log retrieval
 
 # 3. Initial Database Data
 
@@ -60,6 +93,7 @@ The application initializes the database with the following sample data:
 | Connections | 6,000 |
 
 Each rack contains:
+
 - 1 Switch with 24 ports
 - 1 Patch Panel with 24 front ports and 24 back ports
 - 5 Servers (1U)
@@ -78,6 +112,7 @@ Each server has 4 ports, and its first port is connected to the Switch through t
 - PostgreSQL
 - Maven
 - Lombok
+- Spring Security
 - Spring AOP
 - Swagger / OpenAPI
 
@@ -116,11 +151,14 @@ Configure the database connection in `application.yml` according to your local P
 
 After starting the application, Swagger UI is available at:
 
-http://localhost:8080/swagger-ui/index.html
+[http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 Swagger provides an interactive interface for testing the REST API endpoints.
 
 ---
 
-**Project:** Data Center Management System  
+**Project:** Data Center Management System
+
 **Package:** `com.zorofchi.datacenter`
+
+**Purpose:** Java Programming Challenge

@@ -5,6 +5,8 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
 
@@ -21,18 +23,27 @@ public class ActivityLogAspect {
 
     // Saves activity details after successful execution
     @AfterReturning(
-            "execution(* com.zorofchi.datacenter.service.*.add*(..)) || " +
-                    "execution(* com.zorofchi.datacenter.service.*.update*(..)) || " +
-                    "execution(* com.zorofchi.datacenter.service.*.delete*(..)) || " +
-                    "execution(* com.zorofchi.datacenter.service.*.get*(..))"
+            "(execution(* com.zorofchi.datacenter.service.*.*(..)) || " +
+                    "execution(* com.zorofchi.customer.service.*.*(..))) && " +
+                    "!within(com.zorofchi.datacenter.service.ActivityLogService) && " +
+                    "!within(com.zorofchi.datacenter.service.CustomUserDetailsService)"
     )
     public void logActivity(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
         String className = joinPoint.getTarget().getClass().getSimpleName();
         String action = className + " - " + methodName;
         ActivityLog activityLog = new ActivityLog();
-        activityLog.setUsername("UNKNOWN");
-        activityLog.setAction(action);
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String username = "UNKNOWN";
+
+        if (authentication != null && authentication.isAuthenticated()
+                && !"anonymousUser".equals(authentication.getName())) {
+            username = authentication.getName();
+        }
+
+        activityLog.setUsername(username);        activityLog.setAction(action);
         activityLog.setTimestamp(LocalDateTime.now());
         activityLogService.logActivity(activityLog);
 

@@ -43,8 +43,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/**").hasRole("ADMIN")
                         .requestMatchers("/api/tickets/**").hasAnyRole("ADMIN", "SUPPORT")
                         .requestMatchers("/api/ticket-replies/**").hasAnyRole("ADMIN", "SUPPORT")
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().hasAnyRole("ADMIN", "USER")                )
                 .httpBasic(basic -> {});
 
         return http.build();

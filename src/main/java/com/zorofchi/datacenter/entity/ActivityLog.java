@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 public class ActivityLog {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

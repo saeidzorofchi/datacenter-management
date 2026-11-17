@@ -12,7 +12,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -39,9 +38,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void deleteUser(Long id){
-        userRepository.deleteById(id);
+    public void deleteUser(Long id) {
+        User user = getUserById(id);
+        userRepository.delete(user);
     }
-
-
 }
