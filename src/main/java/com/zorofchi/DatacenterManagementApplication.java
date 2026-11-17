@@ -1,4 +1,4 @@
-package com.zorofchi.datacenter;
+package com.zorofchi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
